@@ -1,0 +1,209 @@
+===============================
+INBOXIQ - PROJECT SETUP GUIDE
+===============================
+
+Project Architecture:
+Frontend (Next.js)
+        ↓
+FastAPI Backend
+        ↓
+Redis Queue
+        ↓
+Worker
+        ↓
+PostgreSQL Database
+
+
+========================================
+STEP 1: START POSTGRESQL
+========================================
+
+Make sure PostgreSQL service is running.
+
+Database Name:
+email_ai
+
+
+========================================
+STEP 2: START REDIS
+========================================
+
+Option 1: If Redis is installed locally
+
+Run:
+redis-server
+
+
+Option 2: Using Docker
+
+Run:
+docker run -p 6379:6379 redis
+
+
+========================================
+STEP 3: START BACKEND
+========================================
+
+Open terminal:
+
+cd backend
+
+Activate virtual environment:
+
+.\venv\Scripts\Activate.ps1
+
+Run backend server:
+
+python -m uvicorn main:app --reload
+
+
+Backend runs on:
+http://127.0.0.1:8000
+
+
+========================================
+STEP 4: START WORKER
+========================================
+
+Open another terminal:
+
+cd backend
+
+Activate virtual environment:
+
+.\venv\Scripts\Activate.ps1
+
+Run worker:
+
+python worker.py
+
+
+========================================
+STEP 5: START FRONTEND
+========================================
+
+Open another terminal:
+
+cd inboxiq-frontend
+
+Install dependencies:
+
+npm install
+
+Run frontend:
+
+npm run dev
+
+
+Frontend runs on:
+http://localhost:3000
+
+
+========================================
+STEP 6: TEST THE SYSTEM
+========================================
+
+Open:
+http://127.0.0.1:8000/docs
+
+Use POST /webhook
+
+Example JSON:
+
+{
+  "subject": "Refund charged twice",
+  "body": "My payment was deducted two times."
+}
+
+
+========================================
+EXPECTED FLOW
+========================================
+
+Webhook receives email
+↓
+Redis queue stores it
+↓
+Worker processes email
+↓
+ML model predicts category
+↓
+Assigned team generated
+↓
+Stored in PostgreSQL
+↓
+Dashboard shows live data
+
+
+========================================
+DASHBOARD
+========================================
+
+Open:
+http://localhost:3000/dashboard
+
+
+========================================
+TECH STACK
+========================================
+
+Frontend:
+- Next.js
+- Tailwind CSS
+- Framer Motion
+
+Backend:
+- FastAPI
+- Python
+
+Machine Learning:
+- Scikit-learn
+- Random Forest
+
+Queue System:
+- Redis
+
+Database:
+- PostgreSQL
+
+
+========================================
+COMMON ERRORS
+========================================
+
+1. redis-server not recognized
+-> Redis not installed or PATH issue
+
+2. ModuleNotFoundError
+-> Run:
+pip install -r requirements.txt
+
+3. Dashboard fetch error
+-> Backend not running or CORS issue
+
+4. npm error
+-> Run:
+npm install
+
+
+========================================
+STARTUP ORDER
+========================================
+
+1. PostgreSQL
+2. Redis
+3. Backend
+4. Worker
+5. Frontend
+
+
+========================================
+PROJECT NAME
+========================================
+
+InboxIQ
+AI-Powered Support Operations Platform
+for FinTech Workflows
+
+
+========================================
