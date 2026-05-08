@@ -1,0 +1,51 @@
+                    ┌────────────────────┐
+                    │   Customer Email   │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                 ┌────────────────────────┐
+                 │ FastAPI Webhook API    │
+                 │ (/webhook endpoint)    │
+                 └─────────┬──────────────┘
+                           │
+                           ▼
+                 ┌────────────────────────┐
+                 │      Redis Queue       │
+                 │  Async Email Storage   │
+                 └─────────┬──────────────┘
+                           │
+                           ▼
+                 ┌────────────────────────┐
+                 │     Worker Process     │
+                 │   (worker.py)          │
+                 └─────────┬──────────────┘
+                           │
+                           ▼
+                 ┌────────────────────────┐
+                 │ Machine Learning Model │
+                 │ Random Forest Classifier
+                 └─────────┬──────────────┘
+                           │
+         ┌─────────────────┴─────────────────┐
+         │                                   │
+         ▼                                   ▼
+┌───────────────────┐              ┌───────────────────┐
+│ Predicted Category│              │ Assigned Team     │
+│ Refund Request    │              │ Finance Team      │
+└─────────┬─────────┘              └─────────┬─────────┘
+          │                                  │
+          └──────────────┬───────────────────┘
+                         ▼
+             ┌────────────────────────┐
+             │    PostgreSQL DB       │
+             │ Stores Emails, Teams,  │
+             │ Categories, Confidence │
+             └─────────┬──────────────┘
+                       │
+                       ▼
+             ┌────────────────────────┐
+             │  Next.js Dashboard     │
+             │ Live Support Queues    │
+             │ Finance / Support /    │
+             │ Engineering / Security │
+             └────────────────────────┘
